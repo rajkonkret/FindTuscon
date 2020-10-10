@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,11 +22,18 @@ public class Main {
             Elements elements1 = documentPage
                     .getElementsByClass("om-pager rel");
 
-            elements1.forEach(p -> System.out.println(p.getElementsByAttribute("href").text()));
+            final List<String> pageList = elements1.stream()
+                    .map(p -> p.getElementsByAttribute("href").text())
+                    .collect(Collectors.toList());
+            final List<String> s = Arrays.asList(pageList.get(0).split(" "));
+            //s.forEach(System.out::println);
+
+            pages = Integer.parseInt(s.get(s.size() - 1));
+            System.out.println("max page is " + pages);
             final List<Elements> a = elements1.stream()
                     .map(p -> p.getElementsByTag("a"))
                     .collect(Collectors.toList());
-            System.out.println(a.size());
+            //System.out.println(a.size());
 
             a.forEach(at -> System.out.println(at.eachAttr("href")));
             final List<String> href1 = a.get(0).eachAttr("href");
