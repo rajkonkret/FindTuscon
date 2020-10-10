@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
-        String link = "https://www.otomoto.pl/osobowe/hyundai/tucson/?search%5Bfilter_enum_generation%5D=gen-ii-2015";
+        String link = "https://www.otomoto.pl/osobowe/hyundai/tucson/?search%5Bfilter_enum_generation%5D%5B0%5D=gen-ii-2015&search%5Bfilter_enum_damaged%5D=0&search%5Border%5D=filter_float_price%3Aasc&search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=";
         int pages = 0;
         try {
             Document documentPage = Jsoup.connect(link).get();
@@ -26,7 +26,7 @@ public class Main {
                     .map(p -> p.getElementsByTag("a"))
                     .collect(Collectors.toList());
             System.out.println(a.size());
-            
+
             a.forEach(at -> System.out.println(at.eachAttr("href")));
             final List<String> href1 = a.get(0).eachAttr("href");
             href1.forEach(System.out::println);
