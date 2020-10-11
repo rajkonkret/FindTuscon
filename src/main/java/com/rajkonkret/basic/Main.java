@@ -37,6 +37,7 @@ public class Main {
 
             a.forEach(at -> System.out.println(at.eachAttr("href")));
             final List<String> href1 = a.get(0).eachAttr("href");
+            System.out.println(href1.size());
             href1.forEach(System.out::println);
             //pages = Integer.parseInt(elements1.text());
 
@@ -44,5 +45,15 @@ public class Main {
             ex.printStackTrace();
         }
 //        System.out.println(String.valueOf(pages));
+        String linkToOfferPage = "https://www.otomoto.pl/osobowe/hyundai/tucson/?search%5Bfilter_enum_generation%5D%5B0%5D=gen-ii-2015&search%5Bfilter_enum_damaged%5D=0&search%5Border%5D=filter_float_price%3Aasc&search%5Bbrand_program_id%5D%5B0%5D=&search%5Bcountry%5D=&page=2";
+        try {
+            Document documentOffferOnPage = Jsoup.connect(linkToOfferPage).get();
+            Elements elementsOnPage = documentOffferOnPage
+                    .getElementsByClass("offer-item__content ds-details-container");
+            System.out.println(String.valueOf(elementsOnPage.get(0).getElementsByTag("ul").tagName("li").get(0).getElementsByAttributeValue("data-code", "mileage").text()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
